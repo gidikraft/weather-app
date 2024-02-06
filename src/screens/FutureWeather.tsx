@@ -84,16 +84,21 @@ const FutureWeather = () => {
           <ActivityIndicator size="large" color="blue" />
         ) : (
           <View>
-            <WeatherDetails
-              label="Average temp: "
-              details={`${futureWeather?.forecast?.forecastday?.[0]?.day?.avgtemp_c}°C`}
-            />
-            <WeatherDetails
-              label="Average condition: "
-              details={
-                futureWeather?.forecast?.forecastday?.[0]?.day?.condition?.text
-              }
-            />
+            {futureWeather && (
+              <>
+                <WeatherDetails
+                  label="Average temp: "
+                  details={`${futureWeather?.forecast?.forecastday?.[0]?.day?.avgtemp_c}°C`}
+                />
+                <WeatherDetails
+                  label="Average condition: "
+                  details={
+                    futureWeather?.forecast?.forecastday?.[0]?.day?.condition
+                      ?.text
+                  }
+                />
+              </>
+            )}
 
             <Image
               source={{
