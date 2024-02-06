@@ -1,4 +1,4 @@
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SERVER } from '../network';
 import configDev from '../config/config.dev';
@@ -42,7 +42,14 @@ const HomeScreen = () => {
         <View>
           <Text style={styles.time}>{time}</Text>
 
-          <View style={{ marginTop: 16 }}>
+          <Image
+            source={{
+              uri: `https:${currentWeather?.current?.condition?.icon}`,
+            }}
+            style={styles.conditionIcon}
+          />
+
+          <View style={styles.weatherDetails}>
             <WeatherDetails
               details={currentWeather?.location?.name}
               label="Location: "
@@ -70,12 +77,6 @@ const HomeScreen = () => {
           </View>
         </View>
       )}
-
-      {/* <Image
-        source={{ uri: currentWeather?.current?.condition?.icon }}
-        style={{ height: 64, width: 64 }}
-      /> */}
-      {/* <PrimaryButton label="Go to Future" onPress={toFuture} /> */}
     </View>
   );
 };
@@ -89,7 +90,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   header: {
-    fontSize: 32,
+    fontSize: 24,
+    fontFamily: 'Poppins-Bold',
     textAlign: 'center',
     marginTop: 32,
     color: '#000',
@@ -112,5 +114,13 @@ const styles = StyleSheet.create({
   details: {
     fontSize: 14,
     color: '#000',
+  },
+  conditionIcon: {
+    height: 64,
+    width: 64,
+    alignSelf: 'center',
+  },
+  weatherDetails: {
+    marginTop: 16,
   },
 });

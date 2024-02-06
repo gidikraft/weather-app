@@ -78,7 +78,7 @@ function BottomTabNavigator() {
         component={WeeklyWeather}
         options={{
           headerShown: false,
-          title: 'Weekly',
+          title: 'Hourly',
           tabBarIcon: ({ color, focused }) => (
             <Icon
               name={focused ? 'user' : 'user-inactive'}

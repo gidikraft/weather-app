@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   },
   detailLabel: {
     fontSize: 12,
+    fontFamily: 'Poppins-Medium',
   },
   details: {
     fontSize: 14,

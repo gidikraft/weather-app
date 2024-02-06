@@ -1,4 +1,4 @@
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import WeatherDetails from '../components/layouts/WeatherDetails';
 import { MarineWeather } from '../types/weather';
@@ -47,6 +47,13 @@ const MarineTideWeather = () => {
             details={`${marineWeather?.forecast.forecastday?.[0].day?.condition?.text}`}
             label="Condition: "
           />
+
+          <Image
+            source={{
+              uri: `https:${marineWeather?.forecast?.forecastday?.[0]?.day?.condition?.icon}`,
+            }}
+            style={styles.conditionIcon}
+          />
           {marineWeather?.forecast.forecastday?.[0]?.day?.tides?.[0]?.tide?.map(
             (item, index) => {
               const { tide_height_mt, tide_time, tide_type } = item;
@@ -80,9 +87,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   header: {
-    fontSize: 32,
+    fontSize: 24,
+    fontFamily: 'Poppins-Bold',
     textAlign: 'center',
     marginTop: 32,
     color: '#000',
+  },
+  conditionIcon: {
+    height: 64,
+    width: 64,
+    alignSelf: 'center',
   },
 });

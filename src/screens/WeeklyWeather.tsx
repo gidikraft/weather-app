@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,9 +11,10 @@ import { SERVER } from '../network';
 import configDev from '../config/config.dev';
 import WeatherDetails from '../components/layouts/WeatherDetails';
 import { format } from 'date-fns';
+import { FutureWeatherResponse } from '../types/weather';
 
 const WeeklyWeather = () => {
-  const [weeklyWeather, setWeeklyWeather] = useState();
+  const [weeklyWeather, setWeeklyWeather] = useState<FutureWeatherResponse>();
   const [isLoading, setIsLoading] = useState(false);
 
   const getFutureWeather = async () => {
@@ -40,7 +42,7 @@ const WeeklyWeather = () => {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 30 }}>
+        contentContainerStyle={styles.slideContainer}>
         {isLoading ? (
           <ActivityIndicator size="large" color="blue" />
         ) : (
@@ -49,11 +51,10 @@ const WeeklyWeather = () => {
               (item: any, index: number) => {
                 // console.log(item);
                 return (
-                  <View key={index} style={{ marginTop: 16 }}>
-                    <Text style={{ textAlign: 'center' }}>
+                  <View key={index} style={styles.weatherDetails}>
+                    <Text style={styles.selectedTime}>
                       {format(item?.time, 'pp')}
                     </Text>
-                    {/* <WeatherDetails label="Time: " details={item?.time} /> */}
                     <WeatherDetails
                       label="Condition: "
                       details={item?.condition?.text}
@@ -65,6 +66,13 @@ const WeeklyWeather = () => {
                     <WeatherDetails
                       label="Wind"
                       details={`${item?.wind_kph}kph`}
+                    />
+
+                    <Image
+                      source={{
+                        uri: `https:${item.condition?.icon}`,
+                      }}
+                      style={styles.conditionIcon}
                     />
                   </View>
                 );
@@ -86,9 +94,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   header: {
-    fontSize: 32,
+    fontSize: 24,
+    fontFamily: 'Poppins-Bold',
     textAlign: 'center',
     marginTop: 32,
     color: '#000',
+  },
+  selectedDate: {
+    marginTop: 16,
+    textAlign: 'center',
+    color: '#000',
+  },
+  slideContainer: {
+    paddingBottom: 30,
+  },
+  selectedTime: {
+    textAlign: 'center',
+    color: '#000',
+  },
+  conditionIcon: {
+    height: 64,
+    width: 64,
+    alignSelf: 'center',
+  },
+  weatherDetails: {
+    marginTop: 16,
   },
 });

@@ -53,6 +53,13 @@ export type MarineWeather = {
   };
 };
 
+export type FutureWeatherResponse = {
+  location: LocationType;
+  forecast: {
+    forecastday: ForecastDay[];
+  };
+};
+
 type ForecastDay = {
   date: string;
   date_epoch: number;
@@ -100,4 +107,6 @@ type AstroType = {
   sunset: string;
   moonrise: string;
   moonset: string;
+  moon_phase: string;
+  moon_illumination: number;
 };
